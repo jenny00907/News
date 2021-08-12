@@ -8,8 +8,17 @@
 import SwiftUI
 
 struct StoryListView: View {
+    @ObservedObject private var storyListVM = StoryListViewModel()
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            List(self.storyListVM.stories, id: \.id) { storyVM in
+                NavigationLink(
+                    destination: StoryDetailView(storyId: storyVM.id)) {
+                    Text("\(storyVM.title)")
+                }
+            }
+            .navigationBarTitle("News")
+        }
     }
 }
 
